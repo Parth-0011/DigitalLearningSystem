@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Digital Learning System - Courses</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Available Courses</h2>
+        <a th:href="@{/courses/new}" class="btn btn-primary">Add New Course</a>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3" th:each="course : ${courses}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${course.title}">Course Title</h5>
+                    <p class="card-text text-muted" th:text="${course.description != null ? (course.description.length() > 100 ? course.description.substring(0, 100) + '...' : course.description) : ''}">Description...</p>
+                    <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-outline-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(courses)}" class="col-12">
+            <div class="alert alert-info">No courses found. Click "Add New Course" to create one.</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
